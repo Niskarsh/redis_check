@@ -2,15 +2,20 @@ require('dotenv').config()
 
 
 
-const redis = require('redis');
+const Redis = require('ioredis');
 function main() {
 // Replace the following values with your ElastiCache configuration details
 const host = process.env.HOST;
 const port = process.env.PORT; // Default Redis port
 
 // Create the Redis client
-const redisClient = redis.createClient({ host, port });
-
+// const redisClient = redis.createClient({ host, port });
+const redisClient = new Redis({
+    port, // Redis port
+    host, // Redis host
+  });
+  
+// console.log('Connected to Redis', redis);
 redisClient.on('connect', () => {
     console.log('Connected to Redis12345');
 })
@@ -34,7 +39,7 @@ process.on('SIGINT', () => {
 redisClient.connect().then(async () => {
     console.log('Connected to Redis');
     // await redisClient.set('key', 'value23');
-const value = await redisClient.get('key');
+const value = await redisClient.get('key2');
 console.log(value);
 }).catch((err) => {
     console.log(err.message);
