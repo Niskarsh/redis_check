@@ -10,9 +10,7 @@ const port = process.env.PORT; // Default Redis port
 
 // Create the Redis client
 // const redisClient = redis.createClient({ host, port });
-const redisClient = new Redis({
-   url: `redis://${host}:${port}`
-  });
+const redisClient = new Redis(`redis://${host}:${port}`);
   
 // console.log('Connected to Redis', redis);
 redisClient.on('connect', () => {
